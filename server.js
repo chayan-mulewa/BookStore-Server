@@ -13,7 +13,7 @@ const app = express();
 
 app.use(
     cors({
-        origin: ['https://book-store-client.vercel.app', 'http://localhost:5173'],
+        origin: ['https://book-store-client-rust.vercel.app', 'http://localhost:5173'],
         allowedHeaders: ['token', 'authorization', 'content-type'],
         credentials: true
     })
