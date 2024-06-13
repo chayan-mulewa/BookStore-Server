@@ -1,4 +1,4 @@
-const { Books } = require('../models/index');
+const { Books, Carts } = require('../models/index');
 
 const getAllBooks = async (count) => {
     try {
@@ -84,9 +84,9 @@ const createBook = async (bookData) => {
     }
 };
 
-const updateBook = async (id, bookData) => {
+const updateBook = async (bookData) => {
     try {
-        const updatedBook = await Books.findByIdAndUpdate(id, bookData, { new: true });
+        const updatedBook = await Books.findByIdAndUpdate(bookData.id, bookData, { new: true });
         if (updatedBook) {
             return { success: true, data: updatedBook, message: '' };
         } else {
@@ -97,9 +97,12 @@ const updateBook = async (id, bookData) => {
     }
 };
 
-const deleteBook = async (id) => {
+const deleteBook = async (bookId) => {
     try {
-        const book = await Books.findByIdAndDelete(id);
+        const book = await Books.findByIdAndDelete(bookId);
+
+        await Carts.deleteMany({ bookId: bookId });
+
         if (book) {
             return { success: true, data: null, message: 'Book deleted' };
         } else {

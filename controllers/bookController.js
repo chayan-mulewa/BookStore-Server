@@ -59,7 +59,7 @@ const createBook = async (req, res) => {
 
 const updateBook = async (req, res) => {
     try {
-        const result = await bookService.updateBook(req.params.id, req.body);
+        const result = await bookService.updateBook(req.body);
         if (result.success) {
             res.json(result.data);
         } else {
@@ -71,8 +71,9 @@ const updateBook = async (req, res) => {
 };
 
 const deleteBook = async (req, res) => {
+    const { id } = req.body;
     try {
-        const result = await bookService.deleteBook(req.params.id);
+        const result = await bookService.deleteBook(id);
         if (result.success) {
             res.json({ message: result.message });
         } else {
