@@ -19,7 +19,12 @@ const getAllBooks = async (req, res) => {
                 res.json({ message: result.message });
             }
         } else {
-            res.status(400).json({ message: "Invalid query parameters." });
+            const result = await bookService.getAllBooks();
+            if (result.success) {
+                res.json(result.data);
+            } else {
+                res.json({ message: result.message });
+            }
         }
     } catch (err) {
         res.status(500).json({ message: err.message });
